@@ -104,6 +104,17 @@
             margin-bottom: 18px;
         }
 
+        .quotes {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: linear-gradient(180deg, rgba(255,238,243,0.6), rgba(255,245,247,0.5));
+            border-radius: 12px;
+            width: 100%;
+            color: #7a2b4b;
+        }
+
+        .quotes blockquote { margin: 6px 0; font-style: italic; }
+
         .btn {
             display: inline-flex; align-items:center; gap:10px;
             padding: 12px 22px; border-radius: 28px; border: none;
@@ -158,7 +169,7 @@
     <div class="card" role="article" aria-labelledby="title">
         <div class="image-container" id="mainImage">
             <!-- Local image: place your photo at images/celebration.jpg in the repo -->
-            <img src="images/celebration.jpg" alt="Candles and soft lights celebration">
+            <img id="mainImg" src="images/celebration.jpg" alt="Candles and soft lights celebration">
             <div class="image-overlay">
                 <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M12 21s-6.716-4.35-9.071-6.568C-0.334 11.638 3.43 5 8.5 6.5 10.22 7.12 11.5 9 12 9.5c.5-.5 1.78-2.38 3.5-3 5.07-1.5 8.834 5.138 5.571 8.432C18.716 16.65 12 21 12 21z" fill="#ff6b9a" opacity="0.95" />
@@ -167,11 +178,18 @@
         </div>
 
         <div class="content">
-            <h1 id="title">Happy Birthday, my love ❤️</h1>
+            <h1 id="title">Happy Birthday, Kanna ❤️</h1>
             <div class="subtitle">To the one who fills my days with light</div>
-            <p>Every moment with you is a gift — your laughter, your smile, the way you make ordinary days feel magical. I hope today wraps you in the same warmth you give me every day.</p>
+            <p>My dearest Kanna — every moment with you feels like coming home. Your smile heals the hardest days, your voice turns ordinary moments into memories, and your kindness makes everything better. I celebrate you today and always. I love you more than words can say.</p>
 
-            <div style="display:flex; gap:12px; flex-wrap:wrap; width:100%;">
+            <div class="quotes" aria-hidden="false">
+                <blockquote>“You are my today and all of my tomorrows.”</blockquote>
+                <blockquote>“In you, I’ve found the love of my life and my closest, truest friend.”</blockquote>
+                <blockquote>“When I’m with you, time becomes a soft place to rest.”</blockquote>
+                <blockquote>“I love you not only for what you are, but for what I am when I’m with you.”</blockquote>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap; width:100%; margin-top:14px;">
                 <button class="btn" id="surpriseBtn" aria-label="Click to celebrate and see a surprise">Open My Heart <span class="heart-emoji">❣️</span></button>
                 <a class="btn" href="#" onclick="shareLove();return false;" aria-label="Share a romantic message">Share a Hug 🤗</a>
             </div>
@@ -221,8 +239,21 @@
         const noteBox = document.querySelector('.note-box');
         const overlay = document.getElementById('overlay');
         const overlayImg = document.getElementById('overlayImg');
-        const mainImage = document.querySelector('.image-container img');
+        const mainImage = document.getElementById('mainImg');
         const closeOverlay = document.getElementById('closeOverlay');
+
+        // Inline SVG fallback (data URL) used if the local image doesn't load
+        const fallbackData = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='%23ffd6e8'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23c2185b' font-size='32'>Image%20not%20found</text></svg>";
+
+        // If the local image fails to load, replace with fallback
+        mainImage.addEventListener('error', () => {
+            if (mainImage.src !== fallbackData) mainImage.src = fallbackData;
+        });
+
+        // Also ensure overlay image has fallback if something goes wrong
+        overlayImg.addEventListener('error', () => {
+            if (overlayImg.src !== fallbackData) overlayImg.src = fallbackData;
+        });
 
         function openFullImage(url) {
             overlayImg.src = url;
@@ -247,13 +278,13 @@
 
         btn.addEventListener('click', (e) => {
             // open the main image in full screen and remove tip
-            const src = mainImage.getAttribute('src');
+            const src = mainImage.getAttribute('src') || fallbackData;
             openFullImage(src);
         });
 
         // clicking the image also opens full image
         document.getElementById('mainImage').addEventListener('click', function(e){
-            const src = mainImage.getAttribute('src');
+            const src = mainImage.getAttribute('src') || fallbackData;
             openFullImage(src);
         });
 
@@ -314,9 +345,9 @@
         function shareLove() {
             try {
                 if (navigator.share) {
-                    navigator.share({ title: 'Love note', text: 'Happy Birthday — You mean the world to me ❤️' });
+                    navigator.share({ title: 'Love note for Kanna', text: 'Happy Birthday Kanna — You mean the world to me ❤️' });
                 } else {
-                    alert('Copy this message for me: Happy Birthday — You mean the world to me ❤️');
+                    alert('Copy this message for me: Happy Birthday Kanna — You mean the world to me ❤️');
                 }
             } catch (err) { console.error(err); }
         }
