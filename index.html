@@ -8,22 +8,36 @@
         :root {
             --primary-pink: #ff4d6d;
             --soft-rose: #ff8fa3;
-            --bg-cream: #fff0f3;
         }
 
+        /* Full Screen Background Image */
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-cream);
             font-family: 'Georgia', serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
+            background-color: #000; /* Fallback */
         }
 
-        /* Floating Hearts Background */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* YOUR IMAGE LINKED HERE */
+            background: url('Ashup.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.4; /* Adjust this (0.1 to 0.9) for transparency */
+            z-index: -1;
+            filter: blur(2px); /* Slight blur makes the text easier to read */
+        }
+
+        /* Floating Hearts Layer */
         .heart-bg {
             position: fixed;
             top: 0;
@@ -34,51 +48,44 @@
             z-index: 0;
         }
 
-        /* The Main Card */
+        /* Glass-morphism Card */
         .container {
             position: relative;
             z-index: 10;
-            background: white;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Blurs the background behind the card */
+            padding: 25px;
             border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center;
             max-width: 400px;
             width: 90%;
-            border: 8px solid white;
-            outline: 2px solid var(--soft-rose);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* The Image */
         .couple-photo {
             width: 100%;
-            height: 300px;
+            height: 280px;
             object-fit: cover;
             border-radius: 20px;
             margin-bottom: 20px;
-            filter: sepia(20%);
-            transition: transform 0.5s ease;
-        }
-
-        .couple-photo:hover {
-            transform: scale(1.02) rotate(-1deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         h1 {
             color: var(--primary-pink);
             font-size: 1.8rem;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         .message {
-            color: #555;
+            color: #333;
             font-style: italic;
             line-height: 1.6;
-            padding: 0 10px;
-            display: none; /* Hidden at first */
+            display: none;
         }
 
-        /* Interactive Button */
         .reveal-btn {
             background: var(--primary-pink);
             color: white;
@@ -94,10 +101,9 @@
 
         .reveal-btn:hover {
             background: #c9184a;
-            transform: translateY(-3px);
+            transform: scale(1.05);
         }
 
-        /* Heart Animation */
         @keyframes heartFloat {
             0% { transform: translateY(100vh) scale(0); opacity: 1; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
@@ -106,27 +112,28 @@
 </head>
 <body>
 
+    <div class="bg-image"></div>
+    
     <div class="heart-bg" id="heart-container"></div>
 
     <div class="container">
-        <img src="my-love.jpg" alt="To My Love" class="couple-photo">
+        <img src="Ashup.jpeg" alt="To My Love" class="couple-photo">
         
         <div id="greeting">
-            <h1>Happy Birthday, Beautiful! ❤️</h1>
-            <p>I have a secret message for you...</p>
+            <h1>Happy Birthday, My Love! ❤️</h1>
+            <p>I have a special message waiting for you...</p>
         </div>
 
         <div id="secret-message" class="message">
-            <p>To the person who holds my heart: You are my greatest adventure and my favorite person. May your birthday be as incredible as the love you give me every day.</p>
-            <p><strong>Forever yours.</strong></p>
+            <p>"To the one who fills my heart with happiness—may your day be as beautiful and radiant as your smile. You are my world, Ashup."</p>
+            <p><strong>Forever & Always.</strong></p>
         </div>
 
-        <button class="reveal-btn" onclick="revealMessage()">Tap to Open My Heart</button>
+        <button class="reveal-btn" onclick="revealMessage()">Tap to Reveal</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        // 1. Create Floating Hearts
         function createHeart() {
             const container = document.getElementById('heart-container');
             const heart = document.createElement('div');
@@ -134,41 +141,34 @@
             heart.style.position = 'absolute';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animation = `heartFloat ${Math.random() * 3 + 2}s linear forwards`;
+            heart.style.animation = `heartFloat ${Math.random() * 4 + 3}s linear forwards`;
             container.appendChild(heart);
-
-            setTimeout(() => { heart.remove(); }, 5000);
+            setTimeout(() => { heart.remove(); }, 6000);
         }
+        setInterval(createHeart, 400);
 
-        setInterval(createHeart, 300);
-
-        // 2. Reveal Message and trigger Pink Confetti
         function revealMessage() {
             document.getElementById('greeting').style.display = 'none';
             document.getElementById('secret-message').style.display = 'block';
             document.querySelector('.reveal-btn').style.display = 'none';
 
-            // Pink heart-themed confetti
             var end = Date.now() + (2 * 1000);
             (function frame() {
                 confetti({
-                    particleCount: 2,
+                    particleCount: 3,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
+                    colors: ['#ff4d6d', '#ffffff']
                 });
                 confetti({
-                    particleCount: 2,
+                    particleCount: 3,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
+                    colors: ['#ff4d6d', '#ffffff']
                 });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                if (Date.now() < end) { requestAnimationFrame(frame); }
             }());
         }
     </script>
