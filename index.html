@@ -22,6 +22,7 @@
             background-size: cover;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
         
         body::before {
@@ -88,6 +89,17 @@
             animation: float 6s infinite;
             z-index: 0;
         }
+
+        .click-message {
+            position: fixed;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff1493;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.8), 0 0 20px rgba(255, 20, 147, 0.6);
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp 2s ease-out forwards;
+        }
         
         @keyframes fadeIn {
             from {
@@ -146,6 +158,21 @@
                 opacity: 0;
             }
         }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 0;
+            }
+        }
         
         @media (max-width: 768px) {
             h1 {
@@ -178,17 +205,17 @@
 
         <div class="quote">
             "You are my today and all of my tomorrows."
-            <br>— Leo Christopher
+            <br>— kanna❤️
         </div>
 
         <div class="quote">
             "I love you not only for what you are, but for what I am when I am with you."
-            <br>— Roy Croft
+            <br>— Yours lovingly kanna❤️
         </div>
 
         <div class="wishes">
             Happy Birthday, my love! <span class="heart">💕</span>
-            <br> Forever Yours
+            <br> Forever Yours Kanna❤️
         </div>
     </div>
 
@@ -209,6 +236,23 @@
         }
 
         setInterval(createHeart, 800);
+
+        // Click interaction - create floating "Kanna❤️" message
+        document.addEventListener('click', function(e) {
+            const messages = ['Kanna❤️', '💕 Kanna', 'Kanna 💖', '❤️ Kanna ❤️', 'Love Kanna 💕'];
+            const message = document.createElement('div');
+            message.classList.add('click-message');
+            message.innerHTML = messages[Math.floor(Math.random() * messages.length)];
+            message.style.left = e.clientX + 'px';
+            message.style.top = e.clientY + 'px';
+            message.style.transform = 'translate(-50%, -50%)';
+            
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
+        });
     </script>
 </body>
 
