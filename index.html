@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
+    <title>Happy Birthday Kanna ❤️</title>
     <style>
         :root {
             --primary-pink: #ff4d6d;
-            --white-glass: rgba(255, 255, 255, 0.8);
+            --rose: #ff758f;
         }
 
         body, html {
@@ -15,15 +15,15 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            font-family: 'Great Vibes', cursive, 'Georgia', serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             background-color: #000;
+            overflow: hidden;
         }
 
-        /* The Transparent Background Image */
+        /* Full Screen Background Image */
         .bg-overlay {
             position: fixed;
             top: 0;
@@ -32,169 +32,178 @@
             height: 100%;
             background: url('Ashup.jpeg') no-repeat center center fixed;
             background-size: cover;
-            opacity: 0.35; /* Very transparent as requested */
+            opacity: 0.35;
             z-index: -2;
-            filter: blur(3px);
+            filter: brightness(0.7) blur(2px);
         }
 
-        /* Floating Hearts Container */
-        #heart-shower {
+        /* Interactive Cursor Text */
+        .cursor-trail {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
-            z-index: -1;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 9999;
+            text-shadow: 0 0 5px var(--primary-pink);
+            transition: transform 0.1s ease-out;
         }
 
-        /* Main Romantic Card */
+        /* Glass-morphism Card */
         .card {
-            background: var(--white-glass);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
-            max-width: 380px;
-            width: 85%;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            animation: floatCard 4s ease-in-out infinite;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(255, 77, 109, 0.4);
             z-index: 10;
         }
 
-        /* Polaroid Image Style */
         .polaroid {
             background: white;
-            padding: 10px 10px 40px 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            padding: 12px 12px 45px 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
             transform: rotate(-3deg);
+            margin-bottom: 25px;
             transition: 0.5s;
-            margin-bottom: 20px;
+        }
+
+        .polaroid img {
+            width: 100%;
+            border-radius: 2px;
         }
 
         .polaroid:hover {
             transform: rotate(0deg) scale(1.05);
         }
 
-        .polaroid img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
         h1 {
-            color: var(--primary-pink);
-            font-size: 2.2rem;
+            color: white;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
             margin: 10px 0;
-            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px var(--primary-pink);
         }
 
-        .heart-btn {
+        .btn {
             background: var(--primary-pink);
             color: white;
+            padding: 15px 35px;
             border: none;
-            padding: 15px 30px;
             border-radius: 50px;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            transition: 0.3s;
-        }
-
-        .heart-btn:hover {
-            transform: scale(1.1);
-            background: #ff758f;
-        }
-
-        /* Message style */
-        #wish-text {
-            display: none;
-            font-size: 1.3rem;
-            color: #444;
-            line-height: 1.4;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.6);
             margin-top: 15px;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .btn:hover {
+            background: var(--rose);
+            letter-spacing: 2px;
+            transform: scale(1.1);
         }
 
-        @keyframes heartRise {
-            0% { transform: translateY(110vh) scale(0); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        /* Secret Message Box */
+        #secret-envelope {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            color: #333;
+            font-style: italic;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes floatName {
+            0% { transform: translate(0,0); opacity: 1; }
+            100% { transform: translate(20px, -50px); opacity: 0; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onmousemove="handleMouseMove(event)">
 
     <div class="bg-overlay"></div>
-    <div id="heart-shower"></div>
+    <div id="trail-container"></div>
 
     <div class="card">
         <div class="polaroid">
-            <img src="Ashup.jpeg" alt="My Love">
+            <img src="Ashup.jpeg" alt="Kanna ❤️">
         </div>
 
-        <div id="main-content">
-            <h1>Happy Birthday, My Everything! ❤️</h1>
-            <button class="heart-btn" onclick="revealWish()">Open My Heart</button>
+        <h1 id="title">Happy Birthday Kanna ❤️</h1>
+
+        <div id="main-ui">
+            <p style="color: #eee;">To the girl who makes my world beautiful...</p>
+            <button class="btn" onclick="revealHeart()">Click for Kanna ❤️</button>
         </div>
 
-        <div id="wish-text">
-            <p>To my beautiful Ashup,</p>
-            <p>You make every second of my life feel like a dream. Thank you for being you. Today, the world celebrates the most amazing person I know.</p>
-            <p><strong>I love you forever!</strong></p>
+        <div id="secret-envelope">
+            <p>"Kanna, you are the most precious person in my life. Every moment with you is a blessing. May your birthday be as lovely as you are!"</p>
+            <p><strong>Forever Yours ❤️</strong></p>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        // Create random floating hearts
-        function createHearts() {
-            const container = document.getElementById('heart-shower');
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animation = `heartRise ${Math.random() * 3 + 4}s linear forwards`;
-            heart.style.opacity = Math.random();
-            container.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
+        // 1. Kanna Trail Effect
+        function handleMouseMove(e) {
+            if (Math.random() > 0.1) return; // Reduce frequency for performance
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.innerHTML = 'Kanna ❤️';
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            trail.style.animation = 'floatName 1.5s ease-out forwards';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1500);
         }
-        setInterval(createHearts, 300);
 
-        function revealWish() {
-            document.getElementById('main-content').style.display = 'none';
-            const text = document.getElementById('wish-text');
-            text.style.display = 'block';
+        // 2. Interactive Reveal
+        function revealHeart() {
+            document.getElementById('main-ui').style.display = 'none';
+            document.getElementById('secret-envelope').style.display = 'block';
+            document.getElementById('title').innerHTML = "I Love You, Kanna! ❤️";
 
-            // Romantic explosion of hearts
-            var duration = 5 * 1000;
-            var end = Date.now() + duration;
+            // Heart-shaped explosion
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const heart = confetti.shapeFromText({ text: '❤️' });
 
             (function frame() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return;
+
+                const particleCount = 2;
                 confetti({
-                    particleCount: 2,
+                    particleCount,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#ff4d6d', '#ff8fa3']
+                    shapes: [heart],
+                    colors: ['#ff4d6d', '#ffffff']
                 });
                 confetti({
-                    particleCount: 2,
+                    particleCount,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#ff4d6d', '#ff8fa3']
+                    shapes: [heart],
+                    colors: ['#ff4d6d', '#ffffff']
                 });
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                requestAnimationFrame(frame);
             }());
         }
     </script>
